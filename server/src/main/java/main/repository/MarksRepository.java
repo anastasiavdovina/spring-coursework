@@ -1,18 +1,18 @@
 package main.repository;
 
-import main.entity.Groups;
 import main.entity.Marks;
-import main.entity.People;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface MarksRepository extends CrudRepository<Marks, Long>{
-    boolean existsBySubjectId(long id);
-    boolean existsByTeacherId(long id);
-    boolean existsByStudentId(long id);
+public interface MarksRepository extends CrudRepository<Marks, Long> {
+
+    boolean existsBySubjectId_Id(long id);
+
+    boolean existsByTeacherId_Id(long id);
+
+    boolean existsByStudentId_Id(long id);
 
     @Query("select m from Marks m where m.studentId.id= :studentId")
     List<Marks> findAllByStudentId(Long studentId);

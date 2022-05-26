@@ -60,7 +60,7 @@ public class PeopleController {
         try {
             peopleService.deleteById(id);
         } catch (PersonNotFoundException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No such person");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 

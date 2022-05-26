@@ -1,7 +1,6 @@
 package main.service;
 
 import main.entity.Groups;
-import main.entity.People;
 import main.exception.GroupNotFoundException;
 import main.repository.GroupsRepository;
 import main.repository.PeopleRepository;
@@ -39,7 +38,7 @@ public class GroupServiceImpl implements GroupService{
 
     @Override
     public void deleteById(Long id) {
-        if (peopleRepository.existsByGroupId(id)) {
+        if (peopleRepository.existsByGroupId_Id(id)) {
             throw new GroupNotFoundException("Some people study in this group");
         }
         groupsRepository.deleteById(id);

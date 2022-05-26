@@ -1,8 +1,6 @@
 package main.service;
 
-import main.entity.People;
 import main.entity.Subjects;
-import main.exception.GroupNotFoundException;
 import main.exception.SubjectNotFoundException;
 import main.repository.MarksRepository;
 import main.repository.SubjectsRepository;
@@ -41,7 +39,7 @@ public class SubjectsServiceImpl implements SubjectsService{
 
     @Override
     public void deleteById(Long id) {
-        if (marksRepository.existsBySubjectId(id)) {
+        if (marksRepository.existsBySubjectId_Id(id)) {
             throw new SubjectNotFoundException("Some marks for this subject exist, firstly delete them");
         }
         subjectsRepository.deleteById(id);

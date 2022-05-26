@@ -1,15 +1,13 @@
 package main.repository;
 
-import main.entity.Groups;
 import main.entity.People;
-import main.entity.Subjects;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
 public interface PeopleRepository extends CrudRepository<People, Long> {
-    boolean existsByGroupId(long id);
+    boolean existsByGroupId_Id(long id);
 
     @Query("select p from People p where p.groupId.id= :groupId and p.type= :type")
     List<People> findAllByGroupIdAndType(Long groupId, String type);

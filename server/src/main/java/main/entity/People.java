@@ -32,7 +32,7 @@ public class People {
     public People(String firstName, String lastName, String fatherName, Groups groupId, String type) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.firstName = fatherName;
+        this.fatherName = fatherName;
         this.groupId = groupId;
         this.type = type;
     }

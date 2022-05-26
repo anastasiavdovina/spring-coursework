@@ -2,7 +2,6 @@ package main.service;
 
 import main.entity.People;
 import main.exception.PersonNotFoundException;
-import main.exception.SubjectNotFoundException;
 import main.repository.MarksRepository;
 import main.repository.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class PeopleServiceImpl implements PeopleService{
+    @Autowired
     private MarksRepository marksRepository;
     @Autowired
     private PeopleRepository peopleRepository;
@@ -40,10 +40,10 @@ public class PeopleServiceImpl implements PeopleService{
 
     @Override
     public void deleteById(Long id) {
-        if (marksRepository.existsByStudentId(id)) {
+        if (marksRepository.existsByStudentId_Id(id)) {
             throw new PersonNotFoundException("Some marks of this student exist, firstly delete them");
         }
-        if (marksRepository.existsByTeacherId(id)) {
+        if (marksRepository.existsByTeacherId_Id(id)) {
             throw new PersonNotFoundException("Some marks of this teacher exist, firstly delete them");
         }
         peopleRepository.deleteById(id);
