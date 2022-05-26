@@ -1,0 +1,55 @@
+package main.web;
+
+
+import main.entity.User;
+import main.repository.UserRepository;
+import main.security.jwt.JwtTokenProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
+
+@RestController
+@RequestMapping("dekanat/auth")
+public class AuthController {
+
+    @Autowired
+    AuthenticationManager manager;
+
+    @Autowired
+    JwtTokenProvider tokenProvider;
+
+    @Autowired
+    UserRepository repository;
+
+    @PostMapping("/signin")
+    public ResponseEntity signIn(@RequestBody AuthRequest request) {
+        try {
+            String name = request.getUserName();
+            String token = tokenProvider.createToken(name, repository.findUserByUsername(name)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found")).getRoles());
+
+            Map<Object, Object> model = new HashMap<>();
+            model.put("username", name);
+            model.put("token", token);
+            return ResponseEntity.ok(model);
+        } catch (AuthenticationException e) {
+            throw new BadCredentialsException("Wrong username or password");
+        }
+    }
+
+    @PostMapping("/register")
+    public void registerUser(@RequestBody RegisterRequest request) {
+        repository.save(new User(request.getUsername(), request.getPassword(), request.getRoles()));
+    }
+}
