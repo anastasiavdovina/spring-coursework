@@ -1,29 +1,15 @@
 package main.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class User {
-
-    private long id;
     private String username;
     private String token;
 
     public User() {
     }
 
-    public User(long id, String username, String token) {
-        this.id = id;
+    public User(String username, String token) {
         this.username = username;
         this.token = token;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -38,8 +24,7 @@ public class User {
         return token;
     }
 
-    public void setToken(String Token) {
+    public void setToken(String token) {
         this.token = token;
     }
-
 }
