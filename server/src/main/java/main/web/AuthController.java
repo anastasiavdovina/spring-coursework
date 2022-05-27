@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +31,8 @@ public class AuthController {
     @Autowired
     UserRepository repository;
 
-    @PostMapping("/signin")
-    public ResponseEntity signIn(@RequestBody AuthRequest request) {
+    @PostMapping(value = "/signin", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<Map<Object, Object>> signIn(@RequestBody AuthRequest request) {
         try {
             String name = request.getUserName();
             String token = tokenProvider.createToken(name, repository.findUserByUsername(name)
@@ -48,7 +47,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register", produces = "application/json", consumes = "application/json")
     public void registerUser(@RequestBody RegisterRequest request) {
         repository.save(new User(request.getUsername(), request.getPassword(), request.getRoles()));
     }

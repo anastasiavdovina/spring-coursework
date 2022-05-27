@@ -29,7 +29,7 @@ public class AuthController {
     public String login(@RequestParam String login, @RequestParam String password) {
         String url = "http://localhost:8080/dekanat/auth/signin";
         String json = "{\n" +
-                "\"username\":" + "\"" + login + "\"" + ",\n" +
+                "\"userName\":" + "\"" + login + "\"" + ",\n" +
                 "\"password\":" + "\"" + password + "\"" + "\n" +
                 "}";
         ResponseEntity<String> responseEntity = processPostRequest(url, null, json,
